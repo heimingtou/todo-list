@@ -1,0 +1,45 @@
+.task{
+    background-color: rgb(248, 182, 211);
+    border-radius: 5px;
+    height: 15rem;
+    width: 13rem;
+    display: flex;
+    flex-direction: column;
+    gap:1px;
+}
+h1{
+    font-size: 25px;
+    
+}
+.title{
+    
+    height:40px;
+    text-align: start;
+    padding: 0;
+    margin:5px; 
+   
+}
+.deadline{
+    margin-top: 0px;
+    padding-top: 0px;
+    height: 30px;
+}
+label{
+    display: block;
+    text-align: start;
+    padding-left: 5px;
+}
+.content{
+    background-color: black;
+}
+.tag> span{
+    margin-top: 8px;
+    display: inline-block;
+    width: 35px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: 
+    linear-gradient(rgb(101, 94, 94), rgb(9, 7, 7)) padding-box,
+    linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet) border-box;
+}
