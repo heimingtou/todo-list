@@ -1,10 +1,9 @@
 
-import { useReducer, useState } from "react";
+import { useReducer} from "react";
 import Input from "../Input/Input";
 import "./Popup.css"
 export default function Popup({onAdd,onClose,taskList}){
     const [listT,dispatch]=useReducer(reducer,taskList)
-    const[title,setTitle]=useState("")
     // them input list
 //     function add(){
         
@@ -19,9 +18,11 @@ export default function Popup({onAdd,onClose,taskList}){
             case 'add':
                 return {...listT,list:[...listT.list,""]};
             case 'delete':
-                return {...listT,list:listT.filter((_,i)=>i!==action.id)}
+                return {...listT,list:listT.list.filter((_,i)=>i!==action.id)}
             case 'change':
                 return {...listT,list:listT.list.map((item,i)=>i==action.id?action.value:item)}
+            case 'changeTitle':
+                return { ...listT, title: action.value }
 
         }
    }
@@ -32,13 +33,14 @@ export default function Popup({onAdd,onClose,taskList}){
 //         setList(newList)
 //    }
    function handleAddTask(){
-    if(title===""){
+    if(listT.title===""){
         onClose()
         return
     }
     const data={
-        title:title,
-        listT:listT.list.filter((item)=>item.trim()!=="")// loai bo cac o rong 
+        id:listT.id,
+        title:listT.title,
+       list: listT.list.filter((item) => item.trim() !== "") // loai bo cac o rong 
     }
     onAdd(data) // goi callback truyen du lieu cho component cha
     onClose()// goi callback dong popup
@@ -52,7 +54,7 @@ export default function Popup({onAdd,onClose,taskList}){
 ));
     return(
         <div className="Popup">
-            <Input placeholder="Title" className="titles" value={listT.title} onChange={(e)=>setTitle(e.target.value)} />
+            <Input placeholder="Title" className="titles" value={listT.title} onChange={(e)=>dispatch({type:'changeTitle',value:e.target.value})} />
             <button className="btn" onClick={()=>dispatch({type:'add'})} >+</button>
             {renderList}
             <button className="btn-save" onClick={handleAddTask}>Save</button>
