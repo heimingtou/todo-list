@@ -4,7 +4,7 @@ import CheckBox from "../checkBox/CheckBox"
 import Title from "../Title/Title"
 import "./task.css"
 import Popup from "../popUp/Popup"
-export default function Task({task,handleAdd}){
+export default function Task({task,handleAdd,checkList}){
     const [showPopup,setShowPopup]=useState(false)
     // let listTask= task.list.map(list=>
     //     <CheckBox key={list}>{list.data}</CheckBox>
@@ -12,7 +12,8 @@ export default function Task({task,handleAdd}){
     let listTask=[]
     for(let i=0;i<task.list.length;i++)
     {
-        listTask.push( <CheckBox >{task.list[i].data}</CheckBox>)
+        
+        listTask.push(!task.list[i].check&& <CheckBox  onChange={()=>checkList(task,task.list[i].data)}  >{task.list[i].data}</CheckBox>)
     }
     return(
         <div className="task">

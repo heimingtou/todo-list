@@ -64,8 +64,19 @@ function addTask(){
     dispatch({ type: 'add', value: data });
   }
 }
+function handleCheck(data,listData){
+    const newData=data;
+    for(let i=0;i<newData.list.length;i++)
+    {
+        if(newData.list[i].data==listData)
+        {
+            newData.list[i].check=!newData.list[i].check;
+        }
+    }
+     dispatch({ type: 'update', value: newData });
+}
     let data = taskList.map((t) =>
-        <Task key={t.id} task={t} handleAdd={handleAdd}/>
+        <Task key={t.id} task={t} handleAdd={handleAdd} checkList={handleCheck}/>
     );
     
     return(

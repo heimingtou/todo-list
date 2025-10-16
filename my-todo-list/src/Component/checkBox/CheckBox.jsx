@@ -1,6 +1,6 @@
 
-export default function CheckBox({children}){
+export default function CheckBox({children,...props}){
     return(
-         <label><input type="checkbox"/>{children}</label> 
+         <label><input type="checkbox" {...props} />{children}</label> 
     )
 }
