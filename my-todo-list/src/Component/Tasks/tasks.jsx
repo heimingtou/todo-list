@@ -10,21 +10,25 @@ export default function Tasks(){
         id:Date.now()+1,
         title:"Hoc Web co ban",
         list:[
-            "CSS","HTML","JS"
+            {data:"CSS",check:false},
+            {data:"HTML", check:false},
+            {data:"JS",check:false}
         ]
     },
     {
         id:Date.now()+2,
         title:"Hoc Web nang cao",
         list:[
-            "JSX","TS"
+           {data:"JSX", check:false},
+           {data:"TS",check:false}
         ]
     },
     {
         id:Date.now()+3,
-        title:"HocGame",
+        title:"Hoc Game",
         list:[
-            "UNIT","C#"
+            {data:"UNIT",check:false},
+            {data:"C#",check:false}
         ]
     }
 ]
@@ -46,7 +50,7 @@ function addTask(){
     const newTask = {
                     id: Date.now(),
                     title: "",
-                    list: []
+                    list: [{data:"",check:false}]
                 };
     setNewTask(newTask)
     setShowPopup(true)

@@ -3,7 +3,7 @@ import { useReducer} from "react";
 import Input from "../Input/Input";
 import "./Popup.css"
 export default function Popup({onAdd,onClose,taskList}){
-    const [listT,dispatch]=useReducer(reducer,taskList)
+    
     // them input list
 //     function add(){
         
@@ -16,16 +16,17 @@ export default function Popup({onAdd,onClose,taskList}){
    function reducer(listT,action){
         switch (action.type){
             case 'add':
-                return {...listT,list:[...listT.list,""]};
+                return {...listT,list:[...listT.list,{data:"",check:false}]};
             case 'delete':
                 return {...listT,list:listT.list.filter((_,i)=>i!==action.id)}
             case 'change':
-                return {...listT,list:listT.list.map((item,i)=>i==action.id?action.value:item)}
+                return {...listT,list:listT.list.map((item,i)=>i==action.id?{...item,data:action.value}:item)}
             case 'changeTitle':
                 return { ...listT, title: action.value }
 
         }
    }
+   const [listT,dispatch]=useReducer(reducer,taskList)
    // cap nhat lai mang list 
 //    function handleChange(e, index){
 //         let newList=[...list];
@@ -40,7 +41,7 @@ export default function Popup({onAdd,onClose,taskList}){
     const data={
         id:listT.id,
         title:listT.title,
-       list: listT.list.filter((item) => item.trim() !== "") // loai bo cac o rong 
+       list: listT.list.filter((item) => item.data.trim() !== "") // loai bo cac o rong 
     }
     onAdd(data) // goi callback truyen du lieu cho component cha
     onClose()// goi callback dong popup
@@ -49,7 +50,7 @@ export default function Popup({onAdd,onClose,taskList}){
    let renderList = listT.list.map((item, i) => (
   <div key={i} style={{ display: "flex" }}>
     <button className="btn" onClick={() => dispatch({type:'delete',id:i})}>-</button>
-    <Input placeholder={`List ${i + 1}`} className="list" value={item} onChange={(e)=>dispatch({type:'change',id: i,value:e.target.value})} />
+    <Input placeholder={`List ${i + 1}`} className="list" value={item.data} onChange={(e)=>dispatch({type:'change',id: i,value:e.target.value})} />
   </div>
 ));
     return(
