@@ -41,6 +41,15 @@ function reducer(taskList,action){
             }
             case 'update':
                 return taskList.map(t=>t.id==action.value.id?action.value:t)
+            case 'delList':
+                return taskList.map((item)=>{
+                    if(item.id==action.taskId)
+                    return {
+                        ...item,
+                        list: item.list.filter(item => item.data !== action.value)
+                    }
+                    return item
+                    })
             default:
                 return taskList;
         }
@@ -74,6 +83,8 @@ function handleCheck(data,listData){
         }
     }
      dispatch({ type: 'update', value: newData });
+    dispatch({type:'delList', value:listData,taskId:newData.id})
+    
 }
     let data = taskList.map((t) =>
         <Task key={t.id} task={t} handleAdd={handleAdd} checkList={handleCheck}/>

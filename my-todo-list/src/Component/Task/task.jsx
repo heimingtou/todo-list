@@ -13,7 +13,7 @@ export default function Task({task,handleAdd,checkList}){
     for(let i=0;i<task.list.length;i++)
     {
         
-        listTask.push(!task.list[i].check&& <CheckBox  onChange={()=>checkList(task,task.list[i].data)}  >{task.list[i].data}</CheckBox>)
+        listTask.push(<CheckBox checked={task.list[i].check}  onChange={()=>checkList(task,task.list[i].data)}  >{task.list[i].data}</CheckBox>)
     }
     return(
         <div className="task">
