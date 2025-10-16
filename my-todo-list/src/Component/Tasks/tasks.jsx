@@ -35,6 +35,8 @@ function reducer(taskList,action){
                 
                 return [...taskList, action.value];
             }
+            case 'update':
+                return taskList.map(t=>t.id==action.value.id?action.value:t)
             default:
                 return taskList;
         }
@@ -50,9 +52,14 @@ function addTask(){
     setShowPopup(true)
 }
 // const [task,setTask]=useState(taskList)
-    function handleAdd(data){
-      dispatch({type:'add',value:data})
-    }
+   function handleAdd(data) {
+  const exist = taskList.some(t => t.id === data.id);
+  if (exist) {
+    dispatch({ type: 'update', value: data });
+  } else {
+    dispatch({ type: 'add', value: data });
+  }
+}
     let data = taskList.map((t) =>
         <Task key={t.id} task={t} handleAdd={handleAdd}/>
     );
