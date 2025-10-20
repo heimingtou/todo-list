@@ -82,7 +82,6 @@ function handleCheck(data,listData){
             newData.list[i].check=!newData.list[i].check;
         }
     }
-     dispatch({ type: 'update', value: newData });
     dispatch({type:'delList', value:listData,taskId:newData.id})
     
 }
