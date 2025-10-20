@@ -1,15 +1,12 @@
 .task{
-    background-color: rgb(248, 182, 211);
+    background-color: rgb(249, 154, 194);
     border-radius: 5px;
-    height: 15rem;
-    width: 13rem;
+    height: fit-content;
+    min-height: 18rem;
+    width: 20rem;
     display: flex;
     flex-direction: column;
-    gap:1px;
-}
-h1{
-    font-size: 25px;
-    
+    gap:15px;
 }
 .title{
     
@@ -31,6 +28,9 @@ label{
 }
 .content{
     background-color: black;
+    font-size: 25px;
+    padding-left: 5px;
+
 }
 .tag> span{
     margin-top: 8px;
@@ -42,4 +42,14 @@ label{
     background: 
     linear-gradient(rgb(101, 94, 94), rgb(9, 7, 7)) padding-box,
     linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet) border-box;
+}
+.btn-edit{
+    width: 10rem;
+    height: 3rem;
+    margin-left: 80px;
+    font-size: 30px;
+    padding-top: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: auto;
 }

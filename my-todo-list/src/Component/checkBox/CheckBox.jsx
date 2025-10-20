@@ -1,6 +1,10 @@
 
 export default function CheckBox({children,...props}){
     return(
-         <label><input type="checkbox" {...props} />{children}</label> 
+         <label><input
+         style={{
+            marginRight:"15px"
+         }}
+         type="checkbox" {...props} />{children}</label> 
     )
 }

@@ -26,7 +26,7 @@ export default function Task({task,handleAdd,checkList}){
         <div className="content">
            {listTask}
         </div>
-        <button onClick={()=>setShowPopup(true)}>edit</button>
+        <button className="btn-edit" onClick={()=>setShowPopup(true)}>Edit</button>
         {/* <div className="tag">
             <span></span>
              <span></span>
