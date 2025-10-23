@@ -1,4 +1,4 @@
-import { useState,useReducer } from "react";
+import { useState,useReducer,useEffect } from "react";
 import Popup from "../popUp/Popup";
 import Task from "../Task/task";
 import "./tasks.css"
@@ -50,11 +50,24 @@ function reducer(taskList,action){
                     }
                     return item
                     })
+            case 'delete':
+                return taskList.filter(t=>t.id!=action.id)
             default:
                 return taskList;
         }
    }
-   const [taskList,dispatch]=useReducer(reducer,listTask)
+//    const [taskList,dispatch]=useReducer(reducer,listTask)
+ // 🔹 Khởi tạo từ localStorage
+  const [taskList, dispatch] = useReducer(reducer, [], () => {
+    const stored = localStorage.getItem("tasks");
+    return stored ? JSON.parse(stored) : listTask;
+  });
+
+  // 🔹 Lưu lại mỗi khi taskList thay đổi
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
+
 function addTask(){
     const newTask = {
                     id: Date.now(),
@@ -73,6 +86,9 @@ function addTask(){
     dispatch({ type: 'add', value: data });
   }
 }
+function handleDelete(taskId){
+    dispatch({type:'delete',id:taskId});
+}
 function handleCheck(data,listData){
     const newData=data;
     for(let i=0;i<newData.list.length;i++)
@@ -86,7 +102,7 @@ function handleCheck(data,listData){
     
 }
     let data = taskList.map((t) =>
-        <Task key={t.id} task={t} handleAdd={handleAdd} checkList={handleCheck}/>
+        <Task key={t.id} task={t} handleAdd={handleAdd} checkList={handleCheck} deleted={handleDelete}/>
     );
     
     return(

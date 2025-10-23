@@ -4,7 +4,7 @@ import CheckBox from "../checkBox/CheckBox"
 import Title from "../Title/Title"
 import "./task.css"
 import Popup from "../popUp/Popup"
-export default function Task({task,handleAdd,checkList}){
+export default function Task({task,handleAdd,checkList,deleted}){
     const [showPopup,setShowPopup]=useState(false)
     // let listTask= task.list.map(list=>
     //     <CheckBox key={list}>{list.data}</CheckBox>
@@ -26,7 +26,12 @@ export default function Task({task,handleAdd,checkList}){
         <div className="content">
            {listTask}
         </div>
-        <button className="btn-edit" onClick={()=>setShowPopup(true)}>Edit</button>
+        <div className="btn-tool">
+            <button className="btn-edit" onClick={()=>setShowPopup(true)}>Edit</button>
+             <button className="btn-edit" onClick={()=>deleted(task.id)}>Delete</button>
+
+        </div>
+        
         {/* <div className="tag">
             <span></span>
              <span></span>
