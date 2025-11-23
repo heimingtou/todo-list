@@ -1,21 +1,26 @@
 .Popup{
     position: relative;
-    width: 18rem;
+    min-width: 20rem;
+    width: fit-content;
+    min-height: 25rem;
     height: fit-content;
-    background-color: antiquewhite;
+    background-color: rgb(5, 18, 29);
+    border-radius :5px; ;
 }
 .titles{
     box-sizing: border-box;
-     background-color:antiquewhite;
-    color:black;
+     background-color:rgb(18, 11, 1);
+    color:rgb(233, 226, 226);
+    text-align: center;
     width:100%;
-    height: 2.5rem;
+    height: 3.5rem;
     font-size: 30px;
-    padding-left: 1px;
+    padding-left: 20px;
     margin: 0;
     outline:none;
     border:none;
     box-shadow: none;
+    border-radius :15px; ;
 }
 .titles:focus{
     outline:none;
@@ -24,23 +29,23 @@
 }
 .list{
     box-sizing: border-box;
-    background-color: antiquewhite;
+    background-color: rgb(27, 18, 6);
     border: none;
-    color: black;
+    color: rgb(190, 186, 199);
     width: 95%;
-    height: 1.3rem;
+    height: 2rem;
     font-size: 22px;
     padding-left: 2px;
     margin: 5px 3px;
     border-radius: 5px;
 }
 .btn{
-     width:2rem;
+    width:2rem;
     height:1.5rem;
     padding:0 0;
-    margin:0;
+    margin:10px;
     display:block;
-    background-color:antiquewhite;
+    background-color:rgb(212, 223, 222);
     color:black;
     font-size:20px;
     font-weight:800;
@@ -54,10 +59,37 @@
     box-shadow: none;
 }
 .btn-save{
-    width: 3rem;
+    width: 4rem;
     padding: 2px;
     height: 2rem;
     margin-bottom: 10px ;
-    margin-left: 14.8rem;
-    display: block;
+    margin-right: 1rem;
+    display: inline-block;
+}
+.sunday{
+    background: #ab8787ff;
+    color: red;
+}
+.InList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 3px;
+}
+.contain-Calendar{
+    width: 25rem;
+    height: 5rem;
+    margin-top: 2rem;
+}
+.calendar{
+    position: absolute;
+    top:5em;
+    right: 1px;
+    transform: scale(0.8); /* thu nhỏ 80% */
+  transform-origin: top center; /* giúp calendar co từ trên xuống */
+  width: 250px; /* giới hạn chiều rộng tối đa */
+  font-size: 12px; /* thu nhỏ font */
+    background-color: rgb(61, 51, 51);
+    padding-top: 15px;
+    border-radius: 15px;
 }

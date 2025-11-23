@@ -1,39 +1,63 @@
 import { useState,useReducer,useEffect } from "react";
 import Popup from "../popUp/Popup";
 import Task from "../Task/task";
+
+// import dayjs from "dayjs";
 import "./tasks.css"
+type subtask={
+    data:string;
+    check: boolean;
+}
+type TaskList={
+        id:number,
+        title:string,
+        deadline:Date|null,
+        list:subtask[]
+        
+}
+// dau | nghia la Action co nhieu kieu, no co the thuoc 1 trong 4 kieu da khai bao
+type Action = 
+  | { type: "add"; value: TaskList }
+  | { type: "update"; value: TaskList }
+  | { type: "delete"; id: number }
+  | { type: "delList"; taskId: number; value: string };
+
 export default function Tasks(){
     const [showPopup, setShowPopup] = useState(false); 
-    const [nextTask,setNewTask]=useState()
-    const listTask= [
-    {
-        id:Date.now()+1,
-        title:"Hoc Web co ban",
-        list:[
-            {data:"CSS",check:false},
-            {data:"HTML", check:false},
-            {data:"JS",check:false}
-        ]
-    },
-    {
-        id:Date.now()+2,
-        title:"Hoc Web nang cao",
-        list:[
-           {data:"JSX", check:false},
-           {data:"TS",check:false}
-        ]
-    },
-    {
-        id:Date.now()+3,
-        title:"Hoc Game",
-        list:[
-            {data:"UNIT",check:false},
-            {data:"C#",check:false}
-        ]
-    }
-]
-
-function reducer(taskList,action){
+    const [nextTask,setNewTask]=useState<TaskList|null>(null)
+    
+    const listTask:TaskList[]=[]
+//      [
+//     {
+//         id:Date.now()+1,
+//         title:"Hoc Web co ban",
+//         deadline:null,
+//         list:[
+//             {data:"CSS",check:false},
+//             {data:"HTML", check:false},
+//             {data:"JS",check:false}
+//         ]
+//     },
+//     {
+//         id:Date.now()+2,
+//         title:"Hoc Web nang cao",
+//         deadline:null,
+//         list:[
+//            {data:"JSX", check:false},
+//            {data:"TS",check:false}
+//         ]
+//     },
+//     {
+//         id:Date.now()+3,
+//         title:"Hoc Game",
+//         deadline:null,
+//         list:[
+//             {data:"UNIT",check:false},
+//             {data:"C#",check:false}
+//         ]
+//     }
+// ]
+function reducer(taskList:TaskList[],action:Action){
         switch (action.type){
             case 'add': {
                 
@@ -60,7 +84,14 @@ function reducer(taskList,action){
  // 🔹 Khởi tạo từ localStorage
   const [taskList, dispatch] = useReducer(reducer, [], () => {
     const stored = localStorage.getItem("tasks");
-    return stored ? JSON.parse(stored) : listTask;
+    if(stored){
+        const parsed: TaskList[]=JSON.parse(stored);
+        return parsed.map(t=>({
+            ...t,
+            deadline: t.deadline?new Date(t.deadline):null
+        }))
+    }
+    return listTask;
   });
 
   // 🔹 Lưu lại mỗi khi taskList thay đổi
@@ -72,13 +103,14 @@ function addTask(){
     const newTask = {
                     id: Date.now(),
                     title: "",
+                    deadline:null,
                     list: [{data:"",check:false}]
                 };
     setNewTask(newTask)
     setShowPopup(true)
 }
 // const [task,setTask]=useState(taskList)
-   function handleAdd(data) {
+   function handleAdd(data:TaskList) {
   const exist = taskList.some(t => t.id === data.id);
   if (exist) {
     dispatch({ type: 'update', value: data });
@@ -86,10 +118,10 @@ function addTask(){
     dispatch({ type: 'add', value: data });
   }
 }
-function handleDelete(taskId){
+function handleDelete(taskId:number){
     dispatch({type:'delete',id:taskId});
 }
-function handleCheck(data,listData){
+function handleCheck(data:TaskList,listData:string){
     const newData=data;
     for(let i=0;i<newData.list.length;i++)
     {
@@ -106,15 +138,19 @@ function handleCheck(data,listData){
     );
     
     return(
+      
         <>
         <button className="btn-add" onClick={addTask}>+</button>
-        {showPopup&& <Popup onAdd={handleAdd} onClose={()=>setShowPopup(false)} taskList={nextTask}/>}
-        
+        <div>
+             {showPopup&&nextTask&&(<Popup  onAdd={handleAdd} onClose={()=>setShowPopup(false)} taskList={nextTask}/>)}
+        </div>
+       
         <div className="list-task">
              {data}
         </div>
-       
+      
         </>
+    
         
     )
 }
